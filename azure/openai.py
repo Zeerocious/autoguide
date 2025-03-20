@@ -3,10 +3,11 @@ import requests
 from auth.auth import get_token
 
 OPENAI_MODEL = 'gpt-35-turbo-blue'
+OPENAI_MODEL_4 = "gpt-4-32k-blue"
 
 
 class Convo:
-    def __init__(self):
+    def __init__(self, max_tokens: int, prompt: str):
         # Set the URL for the OpenAI API endpoint, including the deployment
         # model and API version
         self.url = (
@@ -20,7 +21,7 @@ class Convo:
             'Content-Type': 'application/json'
         }
 
-        self.prompt = get_prompt()
+        self.prompt = get_prompt(prompt)
 
         # Set the initial data for the API request
         self.data = {
@@ -36,7 +37,7 @@ class Convo:
             "top_p": 0.95,
             "frequency_penalty": 0,
             "presence_penalty": 0,
-            "max_tokens": 300,
+            "max_tokens": max_tokens,
             "stop": None
         }
 
@@ -72,8 +73,8 @@ class Convo:
         return ai_message
 
 
-def get_prompt():
+def get_prompt(prompt: str):
     current_dir = os.path.dirname(__file__)
 
-    with open(f'{current_dir}/prompt.txt', 'r') as file:
+    with open(f'{current_dir}/{prompt}', 'r') as file:
         return file.read()

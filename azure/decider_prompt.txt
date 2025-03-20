@@ -1,0 +1,8 @@
+Your job is to decide based on the user message, whether or not they are seeking recommendation for a product. 
+
+Your response will be 1 character long, and it will be either 0 or 1
+
+Your response will not have any other character, not even a space or period.
+
+0 will correspond to recommendation
+1 will correspond to any other requests.
